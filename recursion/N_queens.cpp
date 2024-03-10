@@ -10,12 +10,18 @@ int Chess_Q(vector<vector<int>> &a,vector<vector<int>> b, int row){
     for(int i=0;i<b[row].size();i++){
         
         int sum=0;
+        int r=row+1,c=i+1;
         for(int j=0;j<a.size();j++){
-            if((row+1)==a[j][0] || (i+1)==a[j][1] || (((row+1)/float(i+1))==(a[j][0]/float(a[j][1]))))sum=1;
+            int s1=r-a[j][0],s2=c-a[j][1] ;
+            
+            if((s1==0) || (s2==0) || (s1/s2)==1 || (s1/s2)==-1){
+                sum+=1;
+            }
         }
         // it should not be the diagonal and it should not be the array:
         if(sum==0){
-            a.push_back({row+1,i+1});
+            a.push_back({r,c});
+            cout<<(r)<<" "<<c<<endl;
             count+=Chess_Q(a,b,row+1);// next index
             a.pop_back();
         }
@@ -36,7 +42,7 @@ void print(vector<vector<int>> a){
 }
 
 int main() {
-    vector<vector<int>> b(8,vector<int>(8,0));
+    vector<vector<int>> b(4,vector<int>(4,0));
     vector<vector<int>> a;
     
     print(b);
